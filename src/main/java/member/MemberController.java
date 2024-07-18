@@ -1,4 +1,4 @@
-package board;
+package member;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,19 +8,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/board/*")
-public class BoardController extends HttpServlet {
-  private BoardService boardService;
-
-  public BoardController() {
-    boardService = BoardService.getInstance();
-  }
-
+@WebServlet("/member/*")
+public class MemberController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String uri = req.getRequestURI();
-    System.out.println("요청 URI:  " + uri);
-    if (uri.equals("/board")) res.sendRedirect("/board/list");
-    if (uri.equals("/board/write")) res.sendRedirect("/board/write");
+    System.out.println("멤버 콜: " + uri);
+    if (uri.equals("/member/join")) res.sendRedirect("/member-join");
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    System.out.println("회원가입");
   }
 }

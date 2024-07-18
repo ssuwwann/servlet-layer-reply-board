@@ -1,3 +1,6 @@
-header{
+header {
     border: 1px solid crimson;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
 }

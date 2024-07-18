@@ -7,13 +7,14 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
-        <servlet-name>boardList</servlet-name>
-        <servlet-class>board.BoardController</servlet-class>
+        <servlet-name>member-join</servlet-name>
+        <jsp-file>/jsp/member-join.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>boardList</servlet-name>
-        <url-pattern>/board/*</url-pattern>
+        <servlet-name>member-join</servlet-name>
+        <url-pattern>/member-join</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>list</servlet-name>
         <jsp-file>/jsp/list.jsp</jsp-file>
@@ -21,6 +22,15 @@
     <servlet-mapping>
         <servlet-name>list</servlet-name>
         <url-pattern>/board/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>write</servlet-name>
+        <jsp-file>/jsp/write.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>write</servlet-name>
+        <url-pattern>/board/write</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

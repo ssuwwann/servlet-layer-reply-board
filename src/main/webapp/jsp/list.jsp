@@ -2,8 +2,13 @@
 <html>
 <head>
   <title>Title</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 </head>
 <body>
-환영합니다.
+<jsp:include page="${pageContext.request.contextPath}/jsp/common/header.jsp"/>
+<main>
+  <a href="/">돌아가기</a>
+  <a href="write">글쓰러 가기</a>
+</main>
 </body>
 </html>
