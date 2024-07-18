@@ -4,11 +4,28 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-  <display-name>Archetype Created Web Application</display-name>
+    <display-name>Archetype Created Web Application</display-name>
 
-  <servlet-mapping>
-    <servlet-name>default</servlet-name>
-    <url-pattern>/resources/*</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>boardList</servlet-name>
+        <servlet-class>board.BoardController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>boardList</servlet-name>
+        <url-pattern>/board/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>list</servlet-name>
+        <jsp-file>/jsp/list.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>list</servlet-name>
+        <url-pattern>/board/list</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/resources/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
