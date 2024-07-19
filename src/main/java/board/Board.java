@@ -3,7 +3,7 @@ package board;
 import java.util.Date;
 
 public class Board {
-  private int id;
+  private long id;
   private int memberFk;
   private String title;
   private String content;

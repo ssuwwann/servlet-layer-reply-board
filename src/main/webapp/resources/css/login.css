@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    width: 150px;
+}

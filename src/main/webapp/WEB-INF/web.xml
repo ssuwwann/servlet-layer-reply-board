@@ -14,6 +14,14 @@
         <servlet-name>member-join</servlet-name>
         <url-pattern>/member-join</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>member-login</servlet-name>
+        <jsp-file>/jsp/member-login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>member-login</servlet-name>
+        <url-pattern>/member-login</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>list</servlet-name>
@@ -38,4 +46,10 @@
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
 
+
+    <!--  에러 페이지  -->
+    <error-page>
+        <exception-type>exception.login.MemberNotFoundException</exception-type>
+        <location>/jsp/error-page/login-error.jsp</location>
+    </error-page>
 </web-app>

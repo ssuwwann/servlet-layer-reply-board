@@ -1,17 +1,18 @@
 package member;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Getter
-@ToString
 @Builder
+@ToString
 public class Member {
-  private int id;
+  private long id;
   private String loginid;
   private String password;
   private String nickname;
@@ -19,5 +20,4 @@ public class Member {
   private Date updateDate;
 
   private List<String> role;
-
 }
