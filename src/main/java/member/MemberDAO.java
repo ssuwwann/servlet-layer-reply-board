@@ -23,14 +23,12 @@ public class MemberDAO {
       dataSource = (DataSource) envContext.lookup("dbcp");
       con = dataSource.getConnection();
       con.setAutoCommit(false);
-      System.out.println("db 연결");
     } catch (NamingException | SQLException e) {
       e.printStackTrace();
     }
   }
 
   public int insertMember(final Member member) {
-    System.out.println("member: " + member);
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     String sql = "insert into member(loginid, password, nickname) values(?,?,?)";
@@ -42,15 +40,11 @@ public class MemberDAO {
       pstmt.setString(2, member.getPassword());
       pstmt.setString(3, member.getNickname());
       int result = pstmt.executeUpdate();
-      System.out.println("result:  " + result);
       if (result > 0) {
         rs = pstmt.getGeneratedKeys();
-        if (rs.next()) {
-          pk = rs.getInt(1);
-          int addAuthResult = insertAuthority(pk);
-          System.exit(0);
-          if (addAuthResult == 0) con.rollback();
-        }
+        if (rs.next()) pk = rs.getInt(1);
+        int addAuthResult = insertAuthority(pk);
+        if (addAuthResult == 0) con.rollback();
       }
       con.commit();
     } catch (SQLException e) {

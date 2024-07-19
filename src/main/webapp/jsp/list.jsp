@@ -3,6 +3,7 @@
 <head>
   <title>Title</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
+  <script type="module" src="${pageContext.request.contextPath}/resources/js/api/board-api.js"></script>
 </head>
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/common/header.jsp"/>
