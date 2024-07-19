@@ -1,11 +1,15 @@
 package member;
 
-import member.auth.Authority;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Getter
+@ToString
+@Builder
 public class Member {
   private int id;
   private String loginid;

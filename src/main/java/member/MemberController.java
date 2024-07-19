@@ -10,15 +10,26 @@ import java.io.IOException;
 
 @WebServlet("/member/*")
 public class MemberController extends HttpServlet {
+  private MemberService memberService;
+
+  public MemberController() {
+    memberService = MemberService.getInstance();
+  }
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String uri = req.getRequestURI();
-    System.out.println("멤버 콜: " + uri);
     if (uri.equals("/member/join")) res.sendRedirect("/member-join");
   }
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    System.out.println("회원가입");
+  protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    String loginid = req.getParameter("loginid");
+    String password = req.getParameter("password");
+    String nickname = req.getParameter("nickname");
+
+    RequestMember member = new RequestMember(loginid, password, nickname);
+    int i = memberService.addMember(member);
+    System.out.println(i + "번 회원가입 성공");
   }
 }
