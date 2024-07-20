@@ -31,6 +31,7 @@ public class BoardDAO {
   }
 
   public Optional<List<Board>> selectAllBoard(int size, int startNum) {
+    System.out.println("dao start num: " + startNum);
     PreparedStatement pstmtForBoard = null;
     ResultSet rsForBoard = null;
 
@@ -45,7 +46,7 @@ public class BoardDAO {
     try {
       pstmtForBoard = con.prepareStatement(sql);
       pstmtForBoard.setInt(1, startNum);
-      pstmtForBoard.setInt(2, size);
+      pstmtForBoard.setInt(2, 1);
 
       pstmtForCategory = con.prepareStatement(CategorySQL.SELECT_CATEGORY_BY_BOARDFK);
       rsForBoard = pstmtForBoard.executeQuery();

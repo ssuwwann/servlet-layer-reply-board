@@ -18,7 +18,7 @@
       <a href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
     </c:otherwise>
   </c:choose>
-  <a href="${pageContext.request.contextPath}/board?size=10&page=1">게시글 목록</a>
+  <a href="${pageContext.request.contextPath}/board/list?size=10&page=1">게시글 목록</a>
 </main>
 </body>
 </html>

@@ -30,15 +30,13 @@
       </tbody>
     </table>
 
-    <div>
+    <div id="pagination">
       <select name="size">
         <option value="3">3</option>
         <option value="5">5</option>
         <option value="10">10</option>
       </select>
-      <span>a</span>
-      <span>a</span>
-      <span>a</span>
+      <span></span>
     </div>
 
   </content>
