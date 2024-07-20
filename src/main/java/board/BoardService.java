@@ -1,10 +1,7 @@
 package board;
 
-import util.paging.Paging;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class BoardService {
   private BoardDAO boardDAO;
@@ -18,17 +15,27 @@ public class BoardService {
     return boardService;
   }
 
-  public List<BoardResponseDTO> findAllBoard(int size, int page) {
-    System.out.println("board service");
-    Paging paging = new Paging(size, page);
-    List<Board> boards = boardDAO.selectAllBoard(paging).orElseThrow();
-    System.out.println("board service list " + boards);
+  public ResponseDTO<BoardResponseDTO> findAllBoard(int size, int page) {
+    int startNum = (page - 1) * size;
+    startNum = startNum < 0 ? 0 : startNum;
+    List<Board> boards = boardDAO.selectAllBoard(size, startNum).orElseThrow();
 
     List<BoardResponseDTO> list = new ArrayList<>();
     for (Board board : boards) {
-      list.add(new BoardResponseDTO(board.getId(), board.getMemberFk(), board.getTitle(), board.getContent(), board.getViewCount(), board.getLikeCount(), board.getWriteDate(), board.getUpdateDate(), board.getCategoryList()));
+      list.add(new BoardResponseDTO(board.getId(), board.getMemberFk(), board.getTitle(), board.getContent(), board.getViewCount(), board.getLikeCount()
+              , board.getWriteDate(), board.getUpdateDate(), board.getCategoryList()));
     }
-    return list;
+
+    return ResponseDTO.<BoardResponseDTO>withAll()
+            .list(list)
+            .pageSize(size)
+            .currentPage(page)
+            .totalElements(getCount())
+            .build();
+  }
+
+  public int getCount() {
+    return boardDAO.selectCount();
   }
 
 }

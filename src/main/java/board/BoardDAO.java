@@ -1,8 +1,6 @@
 package board;
 
-import board.category.Category;
 import board.category.CategorySQL;
-import util.paging.Paging;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -32,32 +30,32 @@ public class BoardDAO {
     }
   }
 
-  public Optional<List<Board>> selectAllBoard(Paging paging) {
+  public Optional<List<Board>> selectAllBoard(int size, int startNum) {
     PreparedStatement pstmtForBoard = null;
-    PreparedStatement pstmtForCategory = null;
     ResultSet rsForBoard = null;
-    ResultSet rsForCategory = null;
-    List<Board> boardList = new ArrayList<>();
-    List<String> categoryList = new ArrayList<>();
 
+    PreparedStatement pstmtForCategory = null;
+    ResultSet rsForCategory = null;
+
+    List<Board> boardList = new ArrayList<>();
     String sql = "select b.id pk, b.member_fk member_fk, b.title title, b.content content, b.view_count view_count,b.like_count like_count, b.write_date write_date, b.update_date update_date, c.category\n" +
             "from board b join category c on b.id = c.board_fk\n" +
             "group by b.id\n" +
             "order by b.id desc limit ?,?";
     try {
       pstmtForBoard = con.prepareStatement(sql);
-      pstmtForBoard.setInt(1, paging.getStartNum());
-      pstmtForBoard.setInt(2, paging.getPageSize());
+      pstmtForBoard.setInt(1, startNum);
+      pstmtForBoard.setInt(2, size);
 
       pstmtForCategory = con.prepareStatement(CategorySQL.SELECT_CATEGORY_BY_BOARDFK);
-
       rsForBoard = pstmtForBoard.executeQuery();
-
       while (rsForBoard.next()) {
+        List<String> categoryList = new ArrayList<>();
         long pk = rsForBoard.getLong("pk");
-        pstmtForCategory.setLong(1, pk);
-        rsForCategory = pstmtForCategory.executeQuery();
 
+        pstmtForCategory.setLong(1, pk);
+
+        rsForCategory = pstmtForCategory.executeQuery();
         while (rsForCategory.next()) {
           categoryList.add(rsForCategory.getString("category"));
         }
@@ -101,4 +99,35 @@ public class BoardDAO {
       e.printStackTrace();
     }
   }
+
+  public int selectCount() {
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql = "select count(*) from board where delete_yn =1";
+
+    int result = 0;
+    try {
+      pstmt = con.prepareStatement(sql);
+
+      rs = pstmt.executeQuery();
+      if (rs.next()) {
+        result = rs.getInt(1);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
+  public static void closeAll(ResultSet rs, PreparedStatement pstmt) {
+    if (rs != null) {
+      try {
+        rs.close();
+        pstmt.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
 }

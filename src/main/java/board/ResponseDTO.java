@@ -1,31 +1,27 @@
-package util.paging;
+package board;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
-public class Paging {
-  private int pageSize;
-  private int currentPage;
-  private int startNum;
-  private int totalPages;
-  private int startPage;
-  private int endPage;
-  private int totalElements;
-  private boolean nextPage;
-  private boolean previousPage;
+public class ResponseDTO<E> {
+  private List<E> list;
+  private int pageSize, currentPage, startNum, totalPages, startPage, endPage, totalElements;
+  private boolean nextPage, previousPage;
 
-  public Paging(int pageSize, int currentPage) {
+  @Builder(builderMethodName = "withAll")
+  public ResponseDTO(List<E> list, int pageSize, int currentPage, int totalElements) {
+    this.list = list;
     this.pageSize = pageSize;
     this.currentPage = currentPage;
-
-  }
-
-  public void setTotalElements(int totalElements) {
     this.totalElements = totalElements;
+
     totalPages = (int) (Math.ceil((double) totalElements / (double) pageSize));
 
     startNum = (currentPage - 1) * pageSize;
