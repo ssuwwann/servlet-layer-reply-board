@@ -10,14 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="171dcab3-9a14-4ea3-b0ac-2e5dc4f82b77" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b4df03d5-1772-4475-b5f9-0ed4cca4831e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b4df03d5-1772-4475-b5f9-0ed4cca4831e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/paging/Paging.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/list.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/list.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/list.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/api/board-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/api/board-api.js" afterDir="false" />
@@ -30,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="Class" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -194,22 +187,11 @@
       <updated>1721403118653</updated>
       <workItem from="1721403119428" duration="22000" />
       <workItem from="1721403235260" duration="4976000" />
-      <workItem from="1721447092608" duration="13486000" />
+      <workItem from="1721447092608" duration="18021000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/board/BoardDAO.java</url>
-          <line>57</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

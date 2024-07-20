@@ -3,6 +3,7 @@
 <head>
   <title>Title</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
+  <script defer type="module" src="${pageContext.request.contextPath}/resources/js/board.js"></script>
   <script defer type="module" src="${pageContext.request.contextPath}/resources/js/api/board-api.js"></script>
 </head>
 <body>
@@ -28,6 +29,18 @@
       <tbody>
       </tbody>
     </table>
+
+    <div>
+      <select name="size">
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+      </select>
+      <span>a</span>
+      <span>a</span>
+      <span>a</span>
+    </div>
+
   </content>
 
 </main>
