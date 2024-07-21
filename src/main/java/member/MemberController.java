@@ -53,7 +53,7 @@ public class MemberController extends HttpServlet {
     ResponseMember member = memberService.findMemberByLoginid(loginid, password);
     if (member != null) {
       session.setAttribute("member", member);
-      res.sendRedirect("/board");
+      res.sendRedirect("/");
     }
   }
 

@@ -9,3 +9,4 @@ export const getBoard = async (id) => {
   const response = await fetch(`${API_SERVER_HOST}/board/content/${id}`);
   return response.json();
 }
+

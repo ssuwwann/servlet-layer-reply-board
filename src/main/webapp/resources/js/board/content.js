@@ -6,7 +6,6 @@ let page = queryParam.get('page');
 let id = queryParam.get('id')
 
 let data = await getBoard(id)
-console.log(data)
 let tableData = '';
 
 const drawTable = () => {
