@@ -10,3 +10,11 @@ export const getBoard = async (id) => {
   return response.json();
 }
 
+export const addBoard = async (formData) => {
+
+  const response = await fetch(`${API_SERVER_HOST}/board`, {
+    method: 'POST',
+    body  : formData
+  });
+  return response.json();
+}

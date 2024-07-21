@@ -14,7 +14,7 @@ public class FileService {
     return instance;
   }
 
-  public void addFile(List<AttachFile> files) {
-    fileDAO.insertFile(files);
+  public void addFile(AttachFile file) {
+    fileDAO.insertFile(file);
   }
 }

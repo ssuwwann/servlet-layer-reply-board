@@ -41,8 +41,11 @@ public class BoardService {
             board.getLikeCount(), board.getWriteDate(), board.getUpdateDate(), board.getCategoryList());
   }
 
+  public long addBoard(BoardRequestDTO board) {
+    return boardDAO.insertBoard(board);
+  }
+
   public int getCount() {
     return boardDAO.selectCount();
   }
-
 }

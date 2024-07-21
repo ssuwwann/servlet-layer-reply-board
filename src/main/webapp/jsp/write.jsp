@@ -8,14 +8,14 @@
 <body>
 <jsp:include page="${pageContext.request.contextPath}/jsp/common/header.jsp"/>
 <main>
-  <form name="f" action="${request.getContext()}/board" method="post" enctype="multipart/form-data">
+  <form name="f" method="post" enctype="multipart/form-data">
     <table border="1" width="300" height="200">
       <tr>
         <td width="30%" colspan="2" align="center"><h2>입력폼</h2></td>
       </tr>
       <tr>
         <th>작가</th>
-        <td><input type="text" name="name"></td>
+        <td><input type="text" name="name" disabled></td>
       </tr>
       <tr>
         <th width="30%">제목</th>
@@ -32,12 +32,13 @@
       </tr>
       <tr>
         <td colspan="2" align="center">
-          <button>전송</button>
+          <button id="submitBtn">전송</button>
           <button type="reset">취소</button>
         </td>
       </tr>
     </table>
   </form>
+  <div id="fileWrwapper"></div>
   <div id="imgWrapper"></div>
 </main>
 </body>

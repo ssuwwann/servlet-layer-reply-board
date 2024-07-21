@@ -1,7 +1,7 @@
 import {API_SERVER_HOST, getList} from "../api/board-api.js";
 
 let queryParam = new URLSearchParams(location.search);
-
+const writeTag = document.querySelector('#writeATag');
 const selectTag = document.querySelector("select")
 let size = queryParam.get('size');
 let page = queryParam.get('page');
@@ -35,6 +35,7 @@ const drawTable = () => {
   for (let item of data.list) {
     tbodyData += '<tr>'
     tbodyData += `<td>${item.id}</td>`
+    tbodyData += `<td>${item.nickname}</td>`
     tbodyData += `<td><a href="${API_SERVER_HOST}/board/content?id=${item.id}&size=${size}&page=${page}">${item.title}</a></td>`
     tbodyData += `<td>${item.content}</td>`
     tbodyData += `<td>${item.viewCount}</td>`
@@ -55,3 +56,7 @@ const drawTable = () => {
   pagination.innerHTML = paginationData;
 }
 drawTable();
+
+writeTag.addEventListener('click', () => {
+  location.href = `${API_SERVER_HOST}/board/write?size=${size}&page=${page}`;
+})

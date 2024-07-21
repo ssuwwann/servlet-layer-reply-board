@@ -10,10 +10,10 @@
   <h2>로그인</h2>
   <form action="/member?m=login" method="post">
     <label for="loginid">아이디
-      <input type="text" name="loginid" id="loginid">
+      <input type="text" name="loginid" id="loginid" value="suwan@suwan.com">
     </label>
     <label for="password">비밀번호:
-      <input type="text" name="password" id="password">
+      <input type="text" name="password" id="password" name="suwan">
     </label>
     <div>
       <button>전송</button>

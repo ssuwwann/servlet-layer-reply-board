@@ -11,7 +11,7 @@
 <main>
   <div>
     <a href="/">돌아가기</a>
-    <a href="write">글쓰러 가기</a>
+    <a id="writeATag" href="#">글쓰러 가기</a>
   </div>
 
   <content>
@@ -19,6 +19,7 @@
       <thead>
       <tr>
         <th>글번호</th>
+        <th>작성자</th>
         <th>제목</th>
         <th>내용</th>
         <th>조회수</th>

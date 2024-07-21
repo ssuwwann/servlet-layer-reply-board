@@ -117,29 +117,38 @@ public class BoardDAO {
    * 카테고리, 파일이 있는 경우 글이 저장되면 pk를 반환해야 한다.
    * 트랜잭션 1. 게시글 저장 2. 파일 저장
    */
-  public void insertBoard(Board board) {
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+  public long insertBoard(BoardRequestDTO board) {
+    PreparedStatement pstmtForBoard = null;
+    ResultSet rsForBoard = null;
+
+    PreparedStatement pstmtForCategory = null;
+    ResultSet rsForCategory = null;
 
     String sql = "insert into board(member_fk, title, content) values(?,?,?)";
     long pk = 0;
     int result = 0;
     try {
-      pstmt = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-      pstmt.setLong(1, board.getMemberFk());
-      pstmt.setString(2, board.getTitle());
-      pstmt.setString(3, board.getContent());
+      pstmtForBoard = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+      pstmtForBoard.setLong(1, board.getMemberFk());
+      pstmtForBoard.setString(2, board.getTitle());
+      pstmtForBoard.setString(3, board.getContent());
 
-      result = pstmt.executeUpdate();
+      result = pstmtForBoard.executeUpdate();
       if (result > 0) {
-        //  성공하면 카테고리랑 파일에 저장, 단 파일은 유무를 확인해야 한다. (일단은 지우고 카테고리만 진행)
-        rs = pstmt.getGeneratedKeys();
-        if (rs.next()) pk = rs.getLong(1);
+        rsForBoard = pstmtForBoard.getGeneratedKeys();
+        if (rsForBoard.next()) pk = rsForBoard.getLong(1);
+        pstmtForCategory = con.prepareStatement(CategorySQL.INSERT_CATEGORY);
+        pstmtForCategory.setLong(1, pk);
+        pstmtForCategory.setString(2, "카리나");
 
+        if (pstmtForCategory.executeUpdate() == 0)
+          con.rollback();
       }
+      con.commit();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return pk;
   }
 
   public int selectCount() {

@@ -5,6 +5,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,6 +25,20 @@ public class FileDAO {
     }
   }
 
-  public void insertFile(List<AttachFile> files) {
+  public void insertFile(AttachFile file) {
+    PreparedStatement pstmt = null;
+    String sql = "insert into file(board_fk, original_name, save_name, file_path) values(?,?,?,?)";
+
+    try {
+      pstmt = con.prepareStatement(sql);
+      pstmt.setLong(1, file.getBoardFk());
+      pstmt.setString(2, file.getOriginalName());
+      pstmt.setString(3, file.getSaveName());
+      pstmt.setString(4, file.getFilePath());
+
+      if (pstmt.executeUpdate() > 0) con.commit();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 }
