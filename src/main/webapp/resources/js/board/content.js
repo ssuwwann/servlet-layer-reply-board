@@ -8,6 +8,35 @@ let id = queryParam.get('id')
 let data = await getBoard(id)
 let tableData = '';
 
+const drawFile = async () => {
+  const fileList = data.attachFileList;
+  console.log(fileList)
+  for (let item of fileList) {
+    const filepathUri = encodeURI(item.filePath);
+    const saveNameUri = encodeURI(item.saveName);
+    const extention = item.originalName.substring(item.originalName.lastIndexOf(".") + 1);
+    const queryStr = "filepath=" + filepathUri + "&filename=" + saveNameUri;
+
+    const divTag = document.createElement('div');
+    const imgTag = document.createElement('img');
+    const downloadTag = document.createElement('a');
+    const hrTag = document.createElement('hr');
+
+    if (extention.startsWith("jp") || extention.startsWith("png")) {
+      imgTag.setAttribute('src', "http://localhost:8087/file?" + queryStr);
+      divTag.appendChild(imgTag);
+      document.body.append(divTag);
+    }
+
+    downloadTag.href = "http://localhost:8087/file?" + queryStr;
+    downloadTag.setAttribute('download', item.originalName);
+    downloadTag.textContent = item.originalName;
+    document.body.append(downloadTag);
+    downloadTag.after(hrTag);
+
+  }
+}
+
 const drawTable = () => {
   const table = document.querySelector('table');
   tableData += '<tr><td width="30%" colspan="2" align="center"><h2>상세글</h2></td></tr>'
@@ -40,5 +69,9 @@ const drawTable = () => {
     table.appendChild(trTag1)
     table.appendChild(trTag2)
   }
+
+  drawFile();
+
 }
 drawTable();
+

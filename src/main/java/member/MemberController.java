@@ -50,7 +50,7 @@ public class MemberController extends HttpServlet {
     String loginid = req.getParameter("loginid");
     String password = req.getParameter("password");
 
-    ResponseMember member = memberService.findMemberByLoginid(loginid, password);
+    MemberResponseDTO member = memberService.findMemberByLoginid(loginid, password);
     if (member != null) {
       session.setAttribute("member", member);
       res.sendRedirect("/");
@@ -62,7 +62,7 @@ public class MemberController extends HttpServlet {
     String password = req.getParameter("password");
     String nickname = req.getParameter("nickname");
 
-    RequestMember member = new RequestMember(loginid, password, nickname);
+    MemberRequestDTO member = new MemberRequestDTO(loginid, password, nickname);
     int i = memberService.addMember(member);
   }
 }

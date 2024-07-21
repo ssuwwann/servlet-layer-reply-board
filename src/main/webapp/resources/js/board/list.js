@@ -58,5 +58,10 @@ const drawTable = () => {
 drawTable();
 
 writeTag.addEventListener('click', () => {
+  const userpk = document.querySelector('input[type="hidden"]').dataset.user;
+  if (userpk.length === 0) {
+    alert("로그인 먼저 해주세요.")
+    return;
+  }
   location.href = `${API_SERVER_HOST}/board/write?size=${size}&page=${page}`;
 })

@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Getter
-public class ResponseMember {
+public class MemberResponseDTO {
   private long id;
   private String loginid;
   private String nickname;
@@ -15,7 +15,7 @@ public class ResponseMember {
 
   private List<String> role;
 
-  public ResponseMember(Member member) {
+  public MemberResponseDTO(Member member) {
     id = member.getId();
     loginid = member.getLoginid();
     nickname = member.getNickname();

@@ -11,20 +11,18 @@
   <component name="ChangeListManager">
     <list default="true" id="171dcab3-9a14-4ea3-b0ac-2e5dc4f82b77" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/board/category/CategorySQL.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/category/CategorySQL.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/file/FileDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file/FileDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/file/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file/FileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/member-login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/member-login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/write.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/write.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/content.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/content.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/api/board-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/api/board-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/member/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/member/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/member/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/member/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/member/RequestMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/member/MemberRequestDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/member/ResponseMember.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/member/MemberResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reply/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/Reply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/content.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/content.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/api/file-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/api/file-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/board/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/board/content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/board/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/board/list.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/board/write.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/board/write.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +32,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="Class" />
-        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -207,7 +205,7 @@
       <workItem from="1721403235260" duration="4976000" />
       <workItem from="1721447092608" duration="19799000" />
       <workItem from="1721492686719" duration="6222000" />
-      <workItem from="1721529425499" duration="29639000" />
+      <workItem from="1721529425499" duration="36242000" />
     </task>
     <servers />
   </component>

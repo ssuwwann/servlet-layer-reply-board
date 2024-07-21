@@ -14,7 +14,7 @@ public class MemberService {
     return instance;
   }
 
-  public int addMember(RequestMember member) {
+  public int addMember(MemberRequestDTO member) {
     Member m = Member.builder()
             .loginid(member.getLoginid())
             .password(member.getPassword())
@@ -22,7 +22,7 @@ public class MemberService {
     return dao.insertMember(m);
   }
 
-  public ResponseMember findMemberByLoginid(String loginid, String password) {
+  public MemberResponseDTO findMemberByLoginid(String loginid, String password) {
     Member member = dao.selectMemberByLogindid(loginid)
             .orElseThrow(() -> MemberNotFoundException.memberNotFoundException("MEMBER_NOT_FOUND"));
 
@@ -30,6 +30,6 @@ public class MemberService {
       throw MemberNotFoundException.wrongPasswordException("WRONG_PASSWORD");
     }
 
-    return new ResponseMember(member);
+    return new MemberResponseDTO(member);
   }
 }

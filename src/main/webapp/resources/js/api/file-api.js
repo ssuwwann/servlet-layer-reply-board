@@ -7,7 +7,3 @@ export const saveFile = async (formData) => {
   })
   return response.json()
 }
-
-export const getFile = async () => {
-
-}
