@@ -41,6 +41,15 @@
         <url-pattern>/board/write</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>content</servlet-name>
+        <jsp-file>/jsp/content.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>content</servlet-name>
+        <url-pattern>/board/content</url-pattern>
+    </servlet-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/resources/*</url-pattern>

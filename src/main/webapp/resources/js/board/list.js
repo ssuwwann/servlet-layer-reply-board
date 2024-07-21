@@ -1,11 +1,14 @@
-import {API_SERVER_HOST, getList} from "./api/board-api.js";
+import {API_SERVER_HOST, getList} from "../api/board-api.js";
 
-export let queryParam = new URLSearchParams(location.search);
+let queryParam = new URLSearchParams(location.search);
 
 const selectTag = document.querySelector("select")
 let size = queryParam.get('size');
 let page = queryParam.get('page');
 let data = await getList(size, page);
+
+// 초기 size 설정
+localStorage.setItem('size', size);
 
 const changeSelectIndex = (size) => {
   if (size === '3')
@@ -27,13 +30,12 @@ selectTag.addEventListener('change', (e) => {
 const drawTable = () => {
   const tbody = document.querySelector('tbody');
   const pagination = document.querySelector('#pagination > span');
-  console.log(data)
   let tbodyData = '';
   let paginationData = '';
   for (let item of data.list) {
     tbodyData += '<tr>'
     tbodyData += `<td>${item.id}</td>`
-    tbodyData += `<td>${item.title}</td>`
+    tbodyData += `<td><a href="${API_SERVER_HOST}/board/content?id=${item.id}&size=${size}&page=${page}">${item.title}</a></td>`
     tbodyData += `<td>${item.content}</td>`
     tbodyData += `<td>${item.viewCount}</td>`
     tbodyData += `<td>${item.likeCount}</td>`

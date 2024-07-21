@@ -12,14 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Board {
-  private final long id;
-  private final long memberFk;
-  private final String title;
-  private final String content;
-  private final int viewCount;
-  private final int likeCount;
-  private final Date writeDate;
-  private final Date updateDate;
+  private final long id, memberFk;
+  private final String nickname, title, content;
+  private final int viewCount, likeCount;
+  private final Date writeDate, updateDate;
 
   private List<String> categoryList;
   //private List<AttachFile> attachFileList;

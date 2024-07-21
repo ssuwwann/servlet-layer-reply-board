@@ -4,9 +4,9 @@
   <title>Title</title>
 </head>
 <body>
-<jsp:include page="common/header.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/jsp/common/header.jsp"/>
 <main>
-
+  글쓰기 페이지
 </main>
 </body>
 </html>

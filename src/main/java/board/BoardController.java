@@ -21,13 +21,20 @@ public class BoardController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String uri = req.getRequestURI();
+    System.out.println("uri= " + uri);
     int size = req.getParameter("size") == null ? 10 : Integer.parseInt(req.getParameter("size"));
     int page = req.getParameter("page") == null ? 1 : Integer.parseInt(req.getParameter("page"));
 
     if (uri.equals("/board")) {
       getBoardList(req, res, size, page);
-    } else if (uri.equals("/board/write")) {
-      res.sendRedirect("/board/write");
+    }
+
+    if (uri.startsWith("/board/content")) {
+      String idUri = uri.substring(uri.lastIndexOf("/") + 1);
+      if (idUri != null) {
+        long id = Long.parseLong(idUri);
+        getBoardById(req, res, id);
+      }
     }
   }
 
@@ -37,5 +44,14 @@ public class BoardController extends HttpServlet {
     ResponseDTO<BoardResponseDTO> allBoard = boardService.findAllBoard(size, page);
 
     out.print(gson.toJson(allBoard));
+  }
+
+  private void getBoardById(HttpServletRequest req, HttpServletResponse res, long id) throws ServletException, IOException {
+    PrintWriter out = res.getWriter();
+    Gson gson = new Gson();
+    BoardResponseDTO board = boardService.getBoardById(id);
+    System.out.println("board: " + gson.toJson(board));
+
+    out.print(gson.toJson(board));
   }
 }

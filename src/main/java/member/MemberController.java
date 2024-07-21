@@ -55,7 +55,6 @@ public class MemberController extends HttpServlet {
       session.setAttribute("member", member);
       res.sendRedirect("/board");
     }
-    res.getWriter().print("<script>alert('에엥?')</script>");
   }
 
   private void join(HttpServletRequest req) {

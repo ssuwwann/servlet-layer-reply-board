@@ -3,7 +3,7 @@
 <head>
   <title>Title</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
-  <script defer type="module" src="${pageContext.request.contextPath}/resources/js/board.js"></script>
+  <script defer type="module" src="${pageContext.request.contextPath}/resources/js/board/list.js"></script>
   <script defer type="module" src="${pageContext.request.contextPath}/resources/js/api/board-api.js"></script>
 </head>
 <body>

@@ -22,7 +22,7 @@ public class BoardService {
 
     List<BoardResponseDTO> list = new ArrayList<>();
     for (Board board : boards) {
-      list.add(new BoardResponseDTO(board.getId(), board.getMemberFk(), board.getTitle(), board.getContent(), board.getViewCount(), board.getLikeCount()
+      list.add(new BoardResponseDTO(board.getId(), board.getMemberFk(), board.getNickname(), board.getTitle(), board.getContent(), board.getViewCount(), board.getLikeCount()
               , board.getWriteDate(), board.getUpdateDate(), board.getCategoryList()));
     }
 
@@ -32,6 +32,13 @@ public class BoardService {
             .currentPage(page)
             .totalElements(getCount())
             .build();
+  }
+
+
+  public BoardResponseDTO getBoardById(long id) {
+    Board board = boardDAO.selectBoardById(id).orElseThrow();
+    return new BoardResponseDTO(board.getId(), board.getMemberFk(), board.getNickname(), board.getTitle(), board.getContent(), board.getViewCount(),
+            board.getLikeCount(), board.getWriteDate(), board.getUpdateDate(), board.getCategoryList());
   }
 
   public int getCount() {

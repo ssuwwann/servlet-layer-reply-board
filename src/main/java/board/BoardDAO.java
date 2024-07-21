@@ -31,7 +31,6 @@ public class BoardDAO {
   }
 
   public Optional<List<Board>> selectAllBoard(int size, int startNum) {
-    System.out.println("dao start num: " + startNum);
     PreparedStatement pstmtForBoard = null;
     ResultSet rsForBoard = null;
 
@@ -39,38 +38,80 @@ public class BoardDAO {
     ResultSet rsForCategory = null;
 
     List<Board> boardList = new ArrayList<>();
-    String sql = "select b.id pk, b.member_fk member_fk, b.title title, b.content content, b.view_count view_count,b.like_count like_count, b.write_date write_date, b.update_date update_date, c.category\n" +
+    String sql = "select b.id pk, b.member_fk member_fk, m.nickname nickname, b.title title, b.content content, b.view_count view_count,b.like_count like_count, b.write_date write_date, b.update_date update_date, c.category\n" +
             "from board b join category c on b.id = c.board_fk\n" +
+            "join member m on m.id = b.member_fk\n" +
             "group by b.id\n" +
             "order by b.id desc limit ?,?";
     try {
       pstmtForBoard = con.prepareStatement(sql);
       pstmtForBoard.setInt(1, startNum);
-      pstmtForBoard.setInt(2, 1);
+      pstmtForBoard.setInt(2, size);
 
       pstmtForCategory = con.prepareStatement(CategorySQL.SELECT_CATEGORY_BY_BOARDFK);
       rsForBoard = pstmtForBoard.executeQuery();
       while (rsForBoard.next()) {
         List<String> categoryList = new ArrayList<>();
-        long pk = rsForBoard.getLong("pk");
+        long id = rsForBoard.getLong("pk");
 
-        pstmtForCategory.setLong(1, pk);
+        pstmtForCategory.setLong(1, id);
 
         rsForCategory = pstmtForCategory.executeQuery();
         while (rsForCategory.next()) {
           categoryList.add(rsForCategory.getString("category"));
         }
 
-        boardList.add(new Board(pk, rsForBoard.getLong("member_fk"), rsForBoard.getString("title"),
+        boardList.add(new Board(id, rsForBoard.getLong("member_fk"), rsForBoard.getString("nickname"), rsForBoard.getString("title"),
                 rsForBoard.getString("content"), rsForBoard.getInt("view_count"),
                 rsForBoard.getInt("like_count"), rsForBoard.getDate("write_date"), rsForBoard.getDate("update_date"), categoryList));
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(rsForBoard, pstmtForBoard);
+      closeAll(rsForCategory, pstmtForCategory);
     }
     return Optional.ofNullable(boardList);
   }
 
+  public Optional<Board> selectBoardById(long id) {
+    PreparedStatement pstmtForBoard = null;
+    ResultSet rsForBoard = null;
+
+    PreparedStatement pstmtForCategory = null;
+    ResultSet rsForCategory = null;
+
+    Board board = null;
+
+    String sql = "select b.id pk,  b.member_fk member_fk, m.nickname nickname, b.title title, b.content content, b.view_count view_count,b.like_count like_count, " +
+            " b.write_date write_date, b.update_date update_date, c.category\n" +
+            "from board b join category c on b.id = c.board_fk\n" +
+            "join member m on m.id = b.member_fk\n" +
+            "where b.id = ?";
+    try {
+      pstmtForBoard = con.prepareStatement(sql);
+      pstmtForBoard.setLong(1, id);
+
+      pstmtForCategory = con.prepareStatement(CategorySQL.SELECT_CATEGORY_BY_BOARDFK);
+      pstmtForCategory.setLong(1, id);
+      rsForCategory = pstmtForCategory.executeQuery();
+
+      rsForBoard = pstmtForBoard.executeQuery();
+      if (rsForBoard.next()) {
+        List<String> categoryList = new ArrayList<>();
+        while (rsForCategory.next()) {
+          categoryList.add(rsForCategory.getString("category"));
+        }
+        board = new Board(id, rsForBoard.getLong("member_fk"), rsForBoard.getString("nickname"), rsForBoard.getString("title"),
+                rsForBoard.getString("content"), rsForBoard.getInt("view_count"),
+                rsForBoard.getInt("like_count"), rsForBoard.getDate("write_date"), rsForBoard.getDate("update_date"), categoryList);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return Optional.ofNullable(board);
+  }
 
   /**
    * 카테고리, 파일이 있는 경우 글이 저장되면 pk를 반환해야 한다.
