@@ -1,15 +1,34 @@
-import {addReply} from '../api/reply-api.js';
+import {addReply, getReply} from '../api/reply-api.js';
 
-const submitBtn = document.querySelector('#replyWrapper > button')
+const replyData = {};
+const submitBtn = document.querySelector('#replyWrite > button')
+const boardpk = new URLSearchParams(location.search).get('id');
+
+// get Reply
+const data = await getReply(boardpk);
 
 submitBtn.addEventListener('click', async (e) => {
-  const userid = document.querySelector('input[type="hidden"]').dataset.user;
-  const boardpk = document.querySelector('input[name="nickname"]').dataset.pk;
-  const content = document.querySelector('#replyWrapper > textarea').value;
-  let formData = new FormData();
+  const content = document.querySelector('#replyWrite > div[contenteditable="true"]');
 
-  formData.append("userid", userid);
-  formData.append("boardpk", boardpk);
-  formData.append("content", content);
-  const data = await addReply(formData);
+  replyData.boardFk = boardpk;
+  replyData.content = content.innerText;
+
+  const resultData = await addReply(replyData);
+  if (Number(resultData.result) > 0) {
+    const newData = await getReply(boardpk);
+    drawReply(newData);
+    content.innerText = "";
+  }
 })
+
+const drawReply = (data) => {
+  const replyArea = document.querySelector("#replyArea");
+
+  let html = '';
+  for (let item of data) {
+    html += `<div><span>${item.nickname}</span><span>${item.writeDate}</span></div>`
+    html += `<div contenteditable="true">${item.content}</div>`
+    replyArea.innerHTML = html;
+  }
+}
+drawReply(data);

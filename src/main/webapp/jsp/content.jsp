@@ -14,10 +14,12 @@
   </form>
   <div id="imgWrapper"></div>
   <div id="replyWrapper">
-    <textarea name="reply" cols="30" rows="10"></textarea>
-    <button>댓글쓰기</button>
+    <div id="replyWrite">
+      <div contenteditable="true"></div>
+      <button>댓글쓰기</button>
+    </div>
+    <div id="replyArea"></div>
   </div>
-
 </main>
 </body>
 </html>

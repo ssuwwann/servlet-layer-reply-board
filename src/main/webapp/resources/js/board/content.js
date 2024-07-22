@@ -10,7 +10,6 @@ let tableData = '';
 
 const drawFile = async () => {
   const fileList = data.attachFileList;
-  console.log(fileList)
   for (let item of fileList) {
     const filepathUri = encodeURI(item.filePath);
     const saveNameUri = encodeURI(item.saveName);

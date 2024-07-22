@@ -9,4 +9,8 @@ public class ReplyRequestDTO {
   private long memberFk;
   private long boardFk;
   private String content;
+
+  public void setMemberFk(long memberFk) {
+    this.memberFk = memberFk;
+  }
 }

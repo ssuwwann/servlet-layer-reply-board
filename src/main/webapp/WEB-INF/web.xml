@@ -12,7 +12,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>member-join</servlet-name>
-        <url-pattern>/member-join</url-pattern>
+        <url-pattern>/member/join</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>member-login</servlet-name>
@@ -20,7 +20,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>member-login</servlet-name>
-        <url-pattern>/member-login</url-pattern>
+        <url-pattern>/member/login</url-pattern>
     </servlet-mapping>
 
     <servlet>

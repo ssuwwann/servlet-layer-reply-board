@@ -20,8 +20,6 @@ public class MemberController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String uri = req.getRequestURI();
-    if (uri.equals("/member/join")) res.sendRedirect("/member-join");
-    if (uri.equals("/member/login")) res.sendRedirect("/member-login");
     if (uri.equals("/member/logout")) logout(req, res);
 
   }
@@ -32,7 +30,7 @@ public class MemberController extends HttpServlet {
     if (m != null) m = m.trim();
 
     // 회원가입
-    if (m.startsWith("join")) join(req);
+    if (m.startsWith("join")) join(req, res);
 
     // 로그인
     if (m.startsWith("login")) login(req, res);
@@ -57,12 +55,13 @@ public class MemberController extends HttpServlet {
     }
   }
 
-  private void join(HttpServletRequest req) {
+  private void join(HttpServletRequest req, HttpServletResponse res) throws IOException {
     String loginid = req.getParameter("loginid");
     String password = req.getParameter("password");
     String nickname = req.getParameter("nickname");
 
     MemberRequestDTO member = new MemberRequestDTO(loginid, password, nickname);
     int i = memberService.addMember(member);
+    res.sendRedirect("/");
   }
 }

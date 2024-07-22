@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-241.18034.62">
+  <component name="dataSourceStorageLocal" created-in="IU-241.17890.1">
     <data-source name="@localhost" uuid="b4df03d5-1772-4475-b5f9-0ed4cca4831e">
-      <database-info product="MariaDB" version="10.5.25-MariaDB-ubu2004" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="10.5.25" exact-driver-version="3.3">
+      <database-info product="MariaDB" version="10.11.8-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="3.3.3" dbms="MARIADB" exact-version="10.11.8" exact-driver-version="3.3">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
       <user-name>suwan</user-name>
       <schema-mapping>

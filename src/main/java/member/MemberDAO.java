@@ -49,6 +49,8 @@ public class MemberDAO {
       con.commit();
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(null, pstmt);
     }
     return pk;
   }
@@ -65,6 +67,8 @@ public class MemberDAO {
       result = pstmt.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(null, pstmt);
     }
     return result;
   }
@@ -85,6 +89,8 @@ public class MemberDAO {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(rs, pstmt);
     }
 
     return list;
@@ -108,8 +114,45 @@ public class MemberDAO {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(rs, pstmt);
     }
 
     return Optional.ofNullable(member);
+  }
+
+  public Member selectMemberByMemberId(long id) {
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql = "select * from member where id = ?";
+    Member member = null;
+
+    try {
+      pstmt = con.prepareStatement(sql);
+      pstmt.setLong(1, id);
+
+      rs = pstmt.executeQuery();
+      if (rs.next()) {
+        member = new Member(rs.getLong("id"), rs.getString("loginid"), rs.getString("password"),
+                rs.getString("nickname"), rs.getDate("join_date"), rs.getDate("update_date"),
+                selectAuthorityByMemberPk(rs.getLong("id")));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      closeAll(rs, pstmt);
+    }
+    return member;
+  }
+
+  public static void closeAll(ResultSet rs, PreparedStatement pstmt) {
+    if (rs != null) {
+      try {
+        rs.close();
+        pstmt.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
