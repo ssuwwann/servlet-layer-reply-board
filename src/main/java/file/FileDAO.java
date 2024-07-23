@@ -1,6 +1,7 @@
 package file;
 
 import board.BoardDAO;
+import db.BaseDAO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -13,18 +14,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileDAO {
-  private DataSource dataSource;
+public class FileDAO extends BaseDAO {
   private Connection con;
 
   public FileDAO() {
     try {
-      Context initContext = new InitialContext();
-      Context envContext = (Context) initContext.lookup("java:/comp/env");
-      dataSource = (DataSource) envContext.lookup("dbcp");
-      con = dataSource.getConnection();
+      con = getConnection();
       con.setAutoCommit(false);
-    } catch (NamingException | SQLException e) {
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }

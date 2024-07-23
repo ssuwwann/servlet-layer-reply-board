@@ -9,7 +9,6 @@ export const saveFile = async (formData) => {
 }
 
 export const removeFile = async (id, delData) => {
-  console.log(delData)
   const response = await fetch(`${API_SERVER_HOST}/file/${id}`, {
     method: 'POST',
     body  : JSON.stringify(delData)

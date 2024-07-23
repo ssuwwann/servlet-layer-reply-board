@@ -3,13 +3,19 @@ package board;
 import file.AttachFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Getter
 public class BoardRequestDTO {
-  private long memberFk;
-  private String title;
-  private String content;
+  private long id;
+  private final long memberFk;
+  private final String title;
+  private final String content;
+
+  public void setId(long id) {
+    this.id = id;
+  }
 }

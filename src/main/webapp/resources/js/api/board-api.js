@@ -10,9 +10,11 @@ export const getBoard = async (id) => {
   return response.json();
 }
 
-export const addBoard = async (formData) => {
+export const addBoard = async (formData, id) => {
+  let req = `${API_SERVER_HOST}/board`;
+  if (id) req = `${API_SERVER_HOST}/board/${id}`;
 
-  const response = await fetch(`${API_SERVER_HOST}/board`, {
+  const response = await fetch(req, {
     method: 'POST',
     body  : formData
   });

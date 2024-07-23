@@ -51,6 +51,7 @@ public class BoardController extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    String uri = req.getRequestURI();
     PrintWriter out = res.getWriter();
     Gson gson = new Gson();
 
@@ -60,6 +61,10 @@ public class BoardController extends HttpServlet {
     String content = req.getParameter("content");
     String files = req.getParameter("files");
 
+    String id = uri.substring(uri.lastIndexOf("/") + 1);
+
+    long boardPk = 0L;
+
     // 파일이 있을 때
     if (files.length() != 2) {
       String[] jsonObjects = files.split("(?<=}),(?=\\{)");
@@ -67,13 +72,30 @@ public class BoardController extends HttpServlet {
         String s = jsonObject.replaceAll("[\\[\\]]", "");
         attachFile.add(gson.fromJson(s, AttachFile.class));
       }
-      long boardPk = boardService.addBoard(new BoardRequestDTO(fk, title, content));
+
+      // 파일이 존재하고 업데이트일때,
+      try {
+        boardPk = Long.parseLong(id);
+        BoardRequestDTO dto = new BoardRequestDTO(fk, title, content);
+        dto.setId(boardPk);
+        boardService.addBoard(dto);
+      } catch (NumberFormatException ne) {
+        boardPk = boardService.addBoard(new BoardRequestDTO(fk, title, content));
+      }
+      System.out.println(attachFile);
       for (AttachFile file : attachFile) {
         file.setBoardFk(boardPk);
         fileService.addFile(file);
       }
     } else {
-      long boardPk = boardService.addBoard(new BoardRequestDTO(fk, title, content));
+      try {
+        boardPk = Long.parseLong(id);
+        BoardRequestDTO dto = new BoardRequestDTO(fk, title, content);
+        dto.setId(boardPk);
+        boardService.addBoard(dto);
+      } catch (NumberFormatException ne) {
+        long pk = boardService.addBoard(new BoardRequestDTO(fk, title, content));
+      }
     }
     out.print(1);
   }

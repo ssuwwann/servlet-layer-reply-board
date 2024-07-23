@@ -1,14 +1,13 @@
-import {API_SERVER_HOST, getBoard} from "../api/board-api.js";
+import {addBoard, API_SERVER_HOST, getBoard} from "../api/board-api.js";
 import {saveFile, removeFile} from "../api/file-api.js";
-import {draw} from "./drawFile.js";
+import {drawTable, draw} from "./drawFile.js";
 
-const user = document.querySelector('input[type="hidden"]').dataset.user;
 const queryParam = new URLSearchParams(location.search);
 const id = queryParam.get('id')
-const data = await getBoard(id)
-
-let tableData = '';
-const newFileOriginalNameList = [];
+const size = queryParam.get('size')
+const page = queryParam.get('page')
+let data = await getBoard(id)
+let files = [];
 
 const fileUpdate = () => {
   // 새로운 이미지 저장
@@ -16,67 +15,38 @@ const fileUpdate = () => {
   inputTag.addEventListener('change', async (e) => {
     let formData = new FormData();
     for (let item of e.target.files) {
-      newFileOriginalNameList.push(item.originalName);
       formData.append("files", item)
     }
     let fileData = await saveFile(formData);
+    for (let item of fileData) files.push(item);
     draw(fileData);
   })
 }
 
 const boardUpdate = () => {
   const updateBtn = document.querySelector("tr > button:first-child");
-  const formdata = new FormData();
   const fileList = data.attachFileList;
-  console.log("fileList => ", fileList)
-  updateBtn.addEventListener('click', (e) => {
+  updateBtn.addEventListener('click', async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    const fk = document.querySelector('input[type="hidden"]').dataset.user;
+    const title = document.querySelector('input[name="title"]').value;
+    const content = document.querySelector('textarea').value;
 
-  })
-}
-
-const drawTable = () => {
-  const table = document.querySelector('table');
-  tableData += '<tr><td width="30%" colspan="2" align="center"><h2>상세글</h2></td></tr>'
-  tableData += `<tr><th>작가</th><td><input text='text' name='nickname' value='${data.nickname}' data-pk='${data.memberFk}'></td></tr>`
-  tableData += `<tr><th>제목</th><td><input name='title' value='${data.title}'></td></tr>`
-  tableData += `<tr><th>내용</th><td><textarea name='content'>${data.content}</textarea></td></tr>`
-
-  table.innerHTML = tableData;
-
-  if (document.querySelector('input[name="nickname"]').dataset.pk === document.querySelector('input[type="hidden"]').dataset.user) {
-    const trTag1 = document.createElement('tr')
-    const trTag2 = document.createElement('tr')
-    const tdTag = document.createElement('td')
-    const inputTag = document.createElement('input')
-    const updateTag = document.createElement('button')
-    const cancleTag = document.createElement('button')
-
-    tdTag.setAttribute('colspan', 2);
-    inputTag.setAttribute('type', 'file')
-    inputTag.setAttribute('name', 'files')
-    inputTag.setAttribute('multiple', 'multiple')
-    updateTag.innerHTML = '수정'
-    cancleTag.innerHTML = '취소'
-
-    tdTag.appendChild(inputTag)
-    trTag1.appendChild(tdTag)
-    trTag2.appendChild(updateTag)
-    trTag2.appendChild(cancleTag)
-
-    table.appendChild(trTag1)
-    table.appendChild(trTag2)
-  }
-  draw(data.attachFileList);
-
-  if (user.length !== 0)
-    if (data.memberFk === Number(user)) {
-      fileUpdate()
-      boardUpdate();
+    formData.append("fk", fk);
+    formData.append("title", title);
+    formData.append("content", content);
+    console.log("why ? ", files)
+    console.log("why ? ", JSON.stringify(files))
+    formData.append("files", JSON.stringify(files));
+    for (let item of formData.values()) {
+      console.log(item)
     }
 
+    let data = await addBoard(formData, id);
+    if (data === 1) location.href = `${API_SERVER_HOST}/board/list?size=${size}&page=${page}`;
+  })
 }
-drawTable();
 
 const getDelFileList = (url) => {
   const queryParam = url.substring(url.indexOf('?') + 1);
@@ -95,22 +65,22 @@ const getDelFileList = (url) => {
 }
 
 const delFile = () => {
-  const documentWrapper = document.querySelector('#documentWrapper')
-  const imgWrapperDIv = document.querySelectorAll('#imgWrapper div span')
+  const documentWrapper = document.querySelectorAll('#documentWrapper div span')
+  const imgWrapper = document.querySelectorAll('#imgWrapper div span')
 
   let delData = {};
-  documentWrapper.addEventListener('click', (e) => {
-    console.log(e.target)
-    if (e.target.innerText === '삭제') {
+
+  documentWrapper.forEach(e => {
+    e.addEventListener('click', (e) => {
       const delEle = e.target.previousSibling;
-      const aHref = delEle.getAttribute('href');
+      const imgSrc = delEle.getAttribute('src')
       e.target.parentNode.style.display = 'none'
-      delData = getDelFileList(aHref)
+      delData = getDelFileList(imgSrc)
       removeFile(id, delData)
-    }
+    })
   })
 
-  imgWrapperDIv.forEach(e => {
+  imgWrapper.forEach(e => {
     e.addEventListener('click', (e) => {
       const delEle = e.target.previousSibling;
       const imgSrc = delEle.getAttribute('src')
@@ -120,4 +90,6 @@ const delFile = () => {
     })
   })
 }
+
+drawTable(data, fileUpdate, boardUpdate)
 delFile();

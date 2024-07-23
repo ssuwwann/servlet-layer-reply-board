@@ -1,6 +1,7 @@
 package member;
 
 import board.BoardDAO;
+import db.BaseDAO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,18 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class MemberDAO {
-  private DataSource dataSource;
+public class MemberDAO extends BaseDAO {
   private Connection con;
 
   public MemberDAO() {
     try {
-      Context initContext = new InitialContext();
-      Context envContext = (Context) initContext.lookup("java:/comp/env");
-      dataSource = (DataSource) envContext.lookup("dbcp");
-      con = dataSource.getConnection();
+      con = getConnection();
       con.setAutoCommit(false);
-    } catch (NamingException | SQLException e) {
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }

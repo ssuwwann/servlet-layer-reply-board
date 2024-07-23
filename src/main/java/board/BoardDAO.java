@@ -1,6 +1,7 @@
 package board;
 
 import board.category.CategorySQL;
+import db.BaseDAO;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,18 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class BoardDAO {
-  private DataSource dataSource;
+public class BoardDAO extends BaseDAO {
   private Connection con;
 
   public BoardDAO() {
     try {
-      Context initContext = new InitialContext();
-      Context envContext = (Context) initContext.lookup("java:/comp/env");
-      dataSource = (DataSource) envContext.lookup("dbcp");
-      con = dataSource.getConnection();
+      con = getConnection();
       con.setAutoCommit(false);
-    } catch (NamingException | SQLException e) {
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }
@@ -108,15 +105,14 @@ public class BoardDAO {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(rsForBoard, pstmtForBoard);
+      closeAll(rsForCategory, pstmtForCategory);
     }
 
     return Optional.ofNullable(board);
   }
 
-  /**
-   * 카테고리, 파일이 있는 경우 글이 저장되면 pk를 반환해야 한다.
-   * 트랜잭션 1. 게시글 저장 2. 파일 저장
-   */
   public long insertBoard(BoardRequestDTO board) {
     PreparedStatement pstmtForBoard = null;
     ResultSet rsForBoard = null;
@@ -124,29 +120,55 @@ public class BoardDAO {
     PreparedStatement pstmtForCategory = null;
     ResultSet rsForCategory = null;
 
-    String sql = "insert into board(member_fk, title, content) values(?,?,?)";
+    String sql = "";
+
     long pk = 0;
     int result = 0;
     try {
-      pstmtForBoard = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-      pstmtForBoard.setLong(1, board.getMemberFk());
-      pstmtForBoard.setString(2, board.getTitle());
-      pstmtForBoard.setString(3, board.getContent());
+      if (board.getId() == 0) {
+        sql = "insert into board(member_fk, title, content) values(?,?,?)";
+        pstmtForBoard = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+        pstmtForBoard.setLong(1, board.getMemberFk());
+        pstmtForBoard.setString(2, board.getTitle());
+        pstmtForBoard.setString(3, board.getContent());
 
-      result = pstmtForBoard.executeUpdate();
-      if (result > 0) {
-        rsForBoard = pstmtForBoard.getGeneratedKeys();
-        if (rsForBoard.next()) pk = rsForBoard.getLong(1);
-        pstmtForCategory = con.prepareStatement(CategorySQL.INSERT_CATEGORY);
-        pstmtForCategory.setLong(1, pk);
-        pstmtForCategory.setString(2, "카리나");
+        result = pstmtForBoard.executeUpdate();
+        if (result > 0) {
+          rsForBoard = pstmtForBoard.getGeneratedKeys();
+          if (rsForBoard.next()) pk = rsForBoard.getLong(1);
+          pstmtForCategory = con.prepareStatement(CategorySQL.INSERT_CATEGORY);
+          pstmtForCategory.setLong(1, pk);
+          pstmtForCategory.setString(2, "카리나");
 
-        if (pstmtForCategory.executeUpdate() == 0)
-          con.rollback();
+          if (pstmtForCategory.executeUpdate() == 0)
+            con.rollback();
+        }
+        con.commit();
+      } else {
+        sql = "update board set title = ?, content = ? where id = ?";
+        pstmtForBoard = con.prepareStatement(sql);
+        pstmtForBoard.setString(1, board.getTitle());
+        pstmtForBoard.setString(2, board.getContent());
+        pstmtForBoard.setLong(3, board.getId());
+
+        result = pstmtForBoard.executeUpdate();
+        if (result > 0) {
+          pstmtForCategory = con.prepareStatement(CategorySQL.INSERT_CATEGORY);
+          pstmtForCategory.setLong(1, board.getId());
+          pstmtForCategory.setString(2, "카리나");
+
+          if (pstmtForCategory.executeUpdate() == 0)
+            con.rollback();
+        }
+        con.commit();
       }
-      con.commit();
+
+
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(rsForBoard, pstmtForBoard);
+      closeAll(null, pstmtForCategory);
     }
     return pk;
   }
@@ -166,6 +188,8 @@ public class BoardDAO {
       }
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      closeAll(rs, pstmt);
     }
     return result;
   }

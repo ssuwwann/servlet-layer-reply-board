@@ -58,7 +58,5 @@ submitBtn.addEventListener('click', async (e) => {
   formData.append("files", JSON.stringify(files));
 
   let data = await addBoard(formData);
-  console.log(data)
-  console.log(typeof data)
   if (data === 1) location.href = `${API_SERVER_HOST}/board/list?size=${size}&page=${page}`;
 })

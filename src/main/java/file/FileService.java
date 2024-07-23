@@ -26,14 +26,10 @@ public class FileService {
     int result = fileDAO.deleteFile(new FileRequestDTO(decodePath, decodeName));
 
     if (result > 0) {
-      File file = new File(decodePath, decodeName.substring(0, decodeName.indexOf(".")));
+      File file = new File(decodePath, decodeName);
       if (file.exists()) {
         file.delete();
         return 1;
-      } else {
-        File file2 = new File(decodePath, decodeName);
-        file2.delete();
-        System.out.println("존재하지 않는다고?");
       }
     }
     return 0;

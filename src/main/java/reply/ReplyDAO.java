@@ -1,6 +1,8 @@
 package reply;
 
 import board.BoardDAO;
+import db.BaseDAO;
+import lombok.Getter;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -14,18 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ReplyDAO {
-  private DataSource dataSource;
+public class ReplyDAO extends BaseDAO {
   private Connection con;
 
   public ReplyDAO() {
     try {
-      Context initContext = new InitialContext();
-      Context envContext = (Context) initContext.lookup("java:/comp/env");
-      dataSource = (DataSource) envContext.lookup("dbcp");
-      con = dataSource.getConnection();
+
+      con = getConnection();
       con.setAutoCommit(false);
-    } catch (NamingException | SQLException e) {
+    } catch (SQLException e) {
       e.printStackTrace();
     }
   }
