@@ -38,8 +38,10 @@
       </tr>
     </table>
   </form>
-  <div id="fileWrwapper"></div>
-  <div id="imgWrapper"></div>
+  <div id="fileWrwapper">
+    <div id="documentWrapper"></div>
+    <div id="imgWrapper"></div>
+  </div>
 </main>
 </body>
 </html>

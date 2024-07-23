@@ -1,5 +1,7 @@
 package member;
 
+import board.BoardDAO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -50,7 +52,7 @@ public class MemberDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(null, pstmt);
+      BoardDAO.closeAll(null, pstmt);
     }
     return pk;
   }
@@ -68,7 +70,7 @@ public class MemberDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(null, pstmt);
+      BoardDAO.closeAll(null, pstmt);
     }
     return result;
   }
@@ -90,7 +92,7 @@ public class MemberDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(rs, pstmt);
+      BoardDAO.closeAll(rs, pstmt);
     }
 
     return list;
@@ -115,7 +117,7 @@ public class MemberDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(rs, pstmt);
+      BoardDAO.closeAll(rs, pstmt);
     }
 
     return Optional.ofNullable(member);
@@ -140,19 +142,8 @@ public class MemberDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(rs, pstmt);
+      BoardDAO.closeAll(rs, pstmt);
     }
     return member;
-  }
-
-  public static void closeAll(ResultSet rs, PreparedStatement pstmt) {
-    if (rs != null) {
-      try {
-        rs.close();
-        pstmt.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
   }
 }

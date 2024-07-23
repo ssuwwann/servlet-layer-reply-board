@@ -13,7 +13,7 @@
       <input type="text" name="loginid" id="loginid" value="suwan@suwan.com">
     </label>
     <label for="password">비밀번호:
-      <input type="text" name="password" id="password" name="suwan">
+      <input type="text" name="password" id="password" value="suwan">
     </label>
     <div>
       <button>전송</button>

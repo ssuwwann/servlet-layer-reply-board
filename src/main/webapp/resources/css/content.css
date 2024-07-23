@@ -12,11 +12,24 @@ img {
     width: 300px;
 }
 
+div[contenteditable="true"] {
+    border: 1px solid black;
+    height: 75px;
+}
+
+hr:first-child {
+    display: none;
+}
+
 #replyArea {
     background-color: darkgrey;
 }
 
-div[contenteditable="true"] {
-    border: 1px solid black;
-    height: 75px;
+#fileWrwapper span {
+    cursor: pointer;
+    color: red;
+}
+
+#documentWrapper, #imgWrapper {
+    display: flex;
 }

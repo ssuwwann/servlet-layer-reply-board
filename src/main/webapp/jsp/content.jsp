@@ -12,7 +12,10 @@
   <form name="f" method="post">
     <table border="1" width="300" height="200"></table>
   </form>
-  <div id="imgWrapper"></div>
+  <div id="fileWrwapper">
+    <div id="documentWrapper"></div>
+    <div id="imgWrapper"></div>
+  </div>
   <div id="replyWrapper">
     <div id="replyWrite">
       <div contenteditable="true"></div>

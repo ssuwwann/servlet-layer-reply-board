@@ -7,3 +7,12 @@ export const saveFile = async (formData) => {
   })
   return response.json()
 }
+
+export const removeFile = async (id, delData) => {
+  console.log(delData)
+  const response = await fetch(`${API_SERVER_HOST}/file/${id}`, {
+    method: 'POST',
+    body  : JSON.stringify(delData)
+  })
+  return response.json();
+}

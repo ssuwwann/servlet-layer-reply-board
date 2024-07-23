@@ -4,6 +4,7 @@ import file.AttachFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 import java.sql.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Board {
   private final long id, memberFk;
   private final String nickname, title, content;

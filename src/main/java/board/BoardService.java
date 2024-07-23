@@ -43,6 +43,7 @@ public class BoardService {
   public BoardResponseDTO getBoardById(long id) {
     Board board = boardDAO.selectBoardById(id).orElseThrow();
     List<AttachFile> attachFiles = fileDAO.selectFileByBoardFk(board.getId());
+    System.out.println("service attachFiles: " + attachFiles);
     BoardResponseDTO dto = new BoardResponseDTO(board.getId(), board.getMemberFk(), board.getNickname(), board.getTitle(), board.getContent(), board.getViewCount(),
             board.getLikeCount(), board.getWriteDate(), board.getUpdateDate(), board.getCategoryList());
     dto.setAttachFileList(attachFiles);

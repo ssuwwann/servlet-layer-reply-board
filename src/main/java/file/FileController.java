@@ -20,13 +20,29 @@ import java.util.List;
 )
 public class FileController extends HttpServlet {
   private FileUtil fileUtil;
+  private FileService fileService;
 
   public FileController() {
     this.fileUtil = new FileUtil();
+    fileService = FileService.getInstance();
   }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    responseFile(req, res);
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    String uri = req.getRequestURI();
+    System.out.println("uri: " + uri);
+    if (uri.equals("/file")) saveFile(req, res);
+
+    if (uri.startsWith("/file/")) removeFile(req, res);
+
+  }
+
+  private void responseFile(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     String filepath = req.getParameter("filepath");
     String filename = req.getParameter("filename");
     File f = new File(filepath + File.separator + filename);
@@ -49,13 +65,31 @@ public class FileController extends HttpServlet {
     }
   }
 
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-    String uri = req.getRequestURI();
+  private void saveFile(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
     PrintWriter out = res.getWriter();
     Gson gson = new Gson();
     Collection<Part> part = req.getParts();
     List<AttachFile> attachFiles = fileUtil.fileSave(part);
     out.print(gson.toJson(attachFiles));
   }
+
+  private void removeFile(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    Gson gson = new Gson();
+    PrintWriter out = res.getWriter();
+    BufferedReader reader = req.getReader();
+    StringBuilder sb = new StringBuilder();
+    String line;
+    while ((line = reader.readLine()) != null) {
+      sb.append(line);
+    }
+    String jsonData = sb.toString();
+    System.out.println(jsonData);
+    FileRequestDTO dto = gson.fromJson(jsonData, FileRequestDTO.class);
+
+    int result = fileService.removeFile(dto);
+    out.print("{\"result\":" + result + "}");
+
+  }
+
+
 }

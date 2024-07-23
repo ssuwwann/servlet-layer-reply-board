@@ -20,6 +20,7 @@ public class ReplyResponseDTO {
   public static ReplyResponseDTO from(Reply reply) {
     return ReplyResponseDTO.builder()
             .id(reply.getId())
+            .memberFk(reply.getMemberFk())
             .content(reply.getContent())
             .writeDate(reply.getWriteDate())
             .updateDate(reply.getUpdateDate())

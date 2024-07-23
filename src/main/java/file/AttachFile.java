@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Getter
-@RequiredArgsConstructor
 @ToString
+@RequiredArgsConstructor
 public class AttachFile {
   private long boardFk;
   private final String originalName;

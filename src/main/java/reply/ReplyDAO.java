@@ -1,5 +1,7 @@
 package reply;
 
+import board.BoardDAO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -51,7 +53,7 @@ public class ReplyDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(rs, pstmt);
+      BoardDAO.closeAll(rs, pstmt);
     }
     return Optional.ofNullable(list);
   }
@@ -72,19 +74,9 @@ public class ReplyDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      closeAll(null, pstmt);
+      BoardDAO.closeAll(null, pstmt);
     }
     return result;
   }
 
-  public static void closeAll(ResultSet rs, PreparedStatement pstmt) {
-    if (rs != null) {
-      try {
-        rs.close();
-        pstmt.close();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    }
-  }
 }

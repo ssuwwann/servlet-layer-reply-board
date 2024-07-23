@@ -1,39 +1,38 @@
-import {getBoard} from "../api/board-api.js";
+import {API_SERVER_HOST, getBoard} from "../api/board-api.js";
+import {saveFile, removeFile} from "../api/file-api.js";
+import {draw} from "./drawFile.js";
 
-let queryParam = new URLSearchParams(location.search);
-let size = queryParam.get('size');
-let page = queryParam.get('page');
-let id = queryParam.get('id')
+const user = document.querySelector('input[type="hidden"]').dataset.user;
+const queryParam = new URLSearchParams(location.search);
+const id = queryParam.get('id')
+const data = await getBoard(id)
 
-let data = await getBoard(id)
 let tableData = '';
+const newFileOriginalNameList = [];
 
-const drawFile = async () => {
-  const fileList = data.attachFileList;
-  for (let item of fileList) {
-    const filepathUri = encodeURI(item.filePath);
-    const saveNameUri = encodeURI(item.saveName);
-    const extention = item.originalName.substring(item.originalName.lastIndexOf(".") + 1);
-    const queryStr = "filepath=" + filepathUri + "&filename=" + saveNameUri;
-
-    const divTag = document.createElement('div');
-    const imgTag = document.createElement('img');
-    const downloadTag = document.createElement('a');
-    const hrTag = document.createElement('hr');
-
-    if (extention.startsWith("jp") || extention.startsWith("png")) {
-      imgTag.setAttribute('src', "http://localhost:8087/file?" + queryStr);
-      divTag.appendChild(imgTag);
-      document.body.append(divTag);
+const fileUpdate = () => {
+  // 새로운 이미지 저장
+  const inputTag = document.querySelector('input[type="file"]');
+  inputTag.addEventListener('change', async (e) => {
+    let formData = new FormData();
+    for (let item of e.target.files) {
+      newFileOriginalNameList.push(item.originalName);
+      formData.append("files", item)
     }
+    let fileData = await saveFile(formData);
+    draw(fileData);
+  })
+}
 
-    downloadTag.href = "http://localhost:8087/file?" + queryStr;
-    downloadTag.setAttribute('download', item.originalName);
-    downloadTag.textContent = item.originalName;
-    document.body.append(downloadTag);
-    downloadTag.after(hrTag);
+const boardUpdate = () => {
+  const updateBtn = document.querySelector("tr > button:first-child");
+  const formdata = new FormData();
+  const fileList = data.attachFileList;
+  console.log("fileList => ", fileList)
+  updateBtn.addEventListener('click', (e) => {
+    e.preventDefault();
 
-  }
+  })
 }
 
 const drawTable = () => {
@@ -55,7 +54,7 @@ const drawTable = () => {
 
     tdTag.setAttribute('colspan', 2);
     inputTag.setAttribute('type', 'file')
-    inputTag.setAttribute('name', 'fils')
+    inputTag.setAttribute('name', 'files')
     inputTag.setAttribute('multiple', 'multiple')
     updateTag.innerHTML = '수정'
     cancleTag.innerHTML = '취소'
@@ -68,9 +67,57 @@ const drawTable = () => {
     table.appendChild(trTag1)
     table.appendChild(trTag2)
   }
+  draw(data.attachFileList);
 
-  drawFile();
+  if (user.length !== 0)
+    if (data.memberFk === Number(user)) {
+      fileUpdate()
+      boardUpdate();
+    }
 
 }
 drawTable();
 
+const getDelFileList = (url) => {
+  const queryParam = url.substring(url.indexOf('?') + 1);
+  const paramArr = queryParam.split("&");
+  const delFileList = [];
+  for (let item of paramArr) {
+    delFileList.push(item.substring(item.indexOf("=") + 1));
+  }
+
+  const delFileObj = {
+    filePath: delFileList[0],
+    saveName: delFileList[1]
+  }
+
+  return delFileObj;
+}
+
+const delFile = () => {
+  const documentWrapper = document.querySelector('#documentWrapper')
+  const imgWrapperDIv = document.querySelectorAll('#imgWrapper div span')
+
+  let delData = {};
+  documentWrapper.addEventListener('click', (e) => {
+    console.log(e.target)
+    if (e.target.innerText === '삭제') {
+      const delEle = e.target.previousSibling;
+      const aHref = delEle.getAttribute('href');
+      e.target.parentNode.style.display = 'none'
+      delData = getDelFileList(aHref)
+      removeFile(id, delData)
+    }
+  })
+
+  imgWrapperDIv.forEach(e => {
+    e.addEventListener('click', (e) => {
+      const delEle = e.target.previousSibling;
+      const imgSrc = delEle.getAttribute('src')
+      e.target.parentNode.style.display = 'none'
+      delData = getDelFileList(imgSrc)
+      removeFile(id, delData)
+    })
+  })
+}
+delFile();

@@ -10,24 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="171dcab3-9a14-4ea3-b0ac-2e5dc4f82b77" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b4df03d5-1772-4475-b5f9-0ed4cca4831e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b4df03d5-1772-4475-b5f9-0ed4cca4831e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/file/FileRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/board/drawFile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/board/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/board/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/board/BoardService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/member/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/member/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/file/AttachFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file/AttachFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/file/FileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file/FileController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/file/FileDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file/FileDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/file/FileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/file/FileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/member/MemberDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/member/MemberDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/reply/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/Reply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/reply/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/ReplyController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/reply/ReplyDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/ReplyDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/reply/ReplyRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/ReplyRequestDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/reply/ReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/ReplyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/META-INF/context.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/reply/ReplyResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/reply/ReplyResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/content.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/content.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/member-login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/member-login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/write.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/write.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/content.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/content.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/api/reply-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/api/reply-api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/api/file-api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/api/file-api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/board/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/board/content.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/js/reply/reply.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/js/reply/reply.js" afterDir="false" />
     </list>
@@ -219,7 +218,9 @@
       <workItem from="1721447092608" duration="19799000" />
       <workItem from="1721492686719" duration="6222000" />
       <workItem from="1721529425499" duration="36242000" />
-      <workItem from="1721611336880" duration="14289000" />
+      <workItem from="1721611336880" duration="28764000" />
+      <workItem from="1721692729113" duration="1368000" />
+      <workItem from="1721694899256" duration="5295000" />
     </task>
     <servers />
   </component>

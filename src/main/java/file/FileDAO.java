@@ -1,5 +1,7 @@
 package file;
 
+import board.BoardDAO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -42,7 +44,9 @@ public class FileDAO {
         list.add(new AttachFile(rs.getString("original_name"), rs.getString("save_name"), rs.getString("file_path")));
       }
     } catch (SQLException e) {
-      throw new RuntimeException(e);
+      e.printStackTrace();
+    } finally {
+      BoardDAO.closeAll(rs, pstmt);
     }
     return list;
   }
@@ -61,6 +65,26 @@ public class FileDAO {
       if (pstmt.executeUpdate() > 0) con.commit();
     } catch (SQLException e) {
       e.printStackTrace();
+    } finally {
+      BoardDAO.closeAll(null, pstmt);
     }
+  }
+
+  public int deleteFile(FileRequestDTO dto) {
+    PreparedStatement pstmt = null;
+    String sql = "delete from file where save_name = ?";
+    int result = 0;
+    try {
+      pstmt = con.prepareStatement(sql);
+      pstmt.setString(1, dto.getSaveName());
+
+      result = pstmt.executeUpdate();
+      if (result > 0) con.commit();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      BoardDAO.closeAll(null, pstmt);
+    }
+    return result;
   }
 }
